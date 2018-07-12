@@ -4,36 +4,36 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Column, Date, Integer, String,Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
- 
+
 engine = create_engine('sqlite:///QuantumDB.db', echo=False)
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
-session = Session() 
+session = Session()
+
 ########################################################################
 class DeviceTable(Base):
-    """"""
+    """
+    DEVICE TABLE: Contains Device ID and  Device Description
+    """
     __tablename__ = "devicetable"
- 
+
     id = Column(Integer, primary_key=True)
     device_id = Column(String,nullable=False)
     device_desc = Column(String)
     qbits = relationship("QbitVersionedTable", back_populates="device")
 
-    #__table_args__ = (UniqueConstraint('device_id','device_desc'),)
-
- 
-    #----------------------------------------------------------------------
     def __init__(self, device_id, device_desc):
-        """"""
         self.device_id = device_id
         self.device_desc = device_desc
-        #self.qbits = qbits
 
 
 class QbitVersionedTable(Base):
-    """"""
+    """
+    QUBIT TABLE: Contains QUBIT version, per-device-scope qubit id (qbit_counter), resonant freq &
+    two coherence time constants
+    """
     __tablename__ = "qbitversionedtable"
- 
+
     id = Column(Integer, primary_key=True)
     version_id = Column(Integer, nullable=False,default=1)
     device_id = Column(Integer, ForeignKey('devicetable.id'))
@@ -42,13 +42,10 @@ class QbitVersionedTable(Base):
     t1 = Column(Float)
     t2 = Column(Float)
 
-    #__mapper_args__ = {"version_id_col": version_id}
-
     device = relationship("DeviceTable", back_populates="qbits")
     gates = relationship("GateVersionedTable", back_populates="qbit")
-    #----------------------------------------------------------------------
+
     def __init__(self,qbit_counter,resonance_freq,t1,t2,device):
-        """"""
         self.qbit_counter = qbit_counter
         self.resonance_freq = resonance_freq
         self.t1 = t1
@@ -57,9 +54,11 @@ class QbitVersionedTable(Base):
 
 
 class GateVersionedTable(Base):
-    """"""
+    """
+    GATE TABLE:Contains version, gate name(gate_id),Amplitude,Width and Phase
+    """
     __tablename__ = "gateversionedtable"
- 
+
     id = Column(Integer, primary_key=True)
     version_id = Column(Integer, nullable=False,default=1)
     gate_id = Column(String)
@@ -67,12 +66,10 @@ class GateVersionedTable(Base):
     amp = Column(Float)
     width = Column(Float)
     phase = Column(Float)
-    #__mapper_args__ = {"version_id_col": version_id}
- 
+
     qbit = relationship("QbitVersionedTable", back_populates="gates")
-    #----------------------------------------------------------------------
+
     def __init__(self, gate_id,amp, width, phase,qbit):
-        """"""
         self.gate_id = gate_id
         self.amp = amp
         self.width = width
