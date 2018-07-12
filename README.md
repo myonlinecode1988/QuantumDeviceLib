@@ -1,29 +1,30 @@
 # QuantumDeviceLib: An API for superconducting integrated circuit
 
-A superconducting circuit can be broken downs into three components with the following hierarchy. These objects form a simple heirarchy of one-to-many relationships.
-
-```sh
-device -> qubit -> gate
-```
-These are the goals
+The main design goals of this project are:
 a) Implement an software API for CRUD 
 b) Ability to move up/down the hierarchy 
 c) Implement a versioning system
 
-We need to install sqlalchemy and pytest. All test should pass 
+
+We need to install sqlalchemy and pytest. All unit tests should pass 
 before we proceed.
 ```sh
 $ py.test
 ```
 
+## Introductions
+A superconducting circuit comprises of qbits and gates which forms the following one-to-many hierarchy.
+```sh
+device -> qubit -> gate
+```
 
 ## Data Structure
-We have 3 classes which also corresponds to three SQL tables that has 
-been designed to represent the hierarchy with bi-directional connections
-for easy object traversal. 
+To represent such a hierarchy we need three  classes which also corresponds to three SQL tables that has 
+been designed to represent the relationship with bi-directional connections for easy object traversal. 
 
+```sh
 DeviceTable ⇄ QbitVersionedTable ⇄  GateVersionedTable
-
+```
 Let us run an example of device creation. I shall create a device, add qubits,
 add gates for each qubit, update a qubit and delete the table. I shall be displaying the results as seen on a python shell (object addresses will differ from system to system). Please see example.py for reference.
 
@@ -150,3 +151,13 @@ Thus the rows of `gateversionedtable` now becomes:
 | 2 | 1 | -Y/2 | 1 | 1.0 | 1.2 | 3.14 |
 | 3 | 1 | +X/2 | 2 | 2.0 | 1.3 | 1.2  |
 | 4 | 2 | -Y/2| 3 | 2.0 | 1.3 | 3.14  |
+
+## Step 7: Delete Tables
+The following command is used to delete all tables
+```sh
+>>> deleteALL()
+```
+## Step 8: Future Improvements:
+  - Data quality checks to be provides
+  - More robust versioning system
+  - More CRUD functions.
