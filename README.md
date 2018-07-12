@@ -30,18 +30,20 @@ add gates for each qubit, update a qubit and delete the table. I shall be displa
 
 ## Step 1: Create DeviceTable
 
-We create a Device called `7-qbit-prototype` with an attached description.
+We create a device called `7-qbit-prototype` with an attached description. Although the name contains seven qubits; we shall attach two qubits to this device. The first qubit shall contain two gates and the second qubit shall contain one gate.
+ 
 ```sh
 >>> from QuantumDeviceLib.app import *
 >>> createDeviceTable("7-qbit-prototype","A 7 qbit prototype chip")
 ```
-The `devicetable` database will show this
+The rows of `devicetable` become:
 
 | id        | device\_id | device\_desc  |
 | ----------- |:--------------:|-------|
 | 1 | 7-qbit-prototype | A 7 qbit prototype chip |
 
 ## Step 2: Read DeviceTable
+
 We shall now use `ListDeviceTable()` which returns the list of all devices in the table.
 
 ```sh
@@ -51,7 +53,7 @@ We shall now use `ListDeviceTable()` which returns the list of all devices in th
 ```
 
 ## Step 3: Add Qbits
-We add two qbits with different parameters
+We add two qbits with different parameters to the first device.
 ```sh
 >>> createQbitVersionedTable(2.3,1.2,1.4,device=devices[0])
 >>> createQbitVersionedTable(2.4,1.3,1.5,device=devices[0])
@@ -67,8 +69,8 @@ This creates the following rows in `qbitversionedtable` table
 The `qbit_counter` is a proxy for "qubit IDs that have per-device-scope".
 This if we add a new device ; then it's first qubit will have `qbit_counter`=0
 
-The `version_id` is always 1 unless we choose an update for a particular row;
-when it appends the new row (doesn't delete the old row) and marks the new row
+The `version_id` is always 1 unless we choose an update for a particular row.
+This is when it appends a new row (doesn't delete the old row) and marks the new row
 as old `version_id` plus one.
 
 ## Step 4: Read QbitVersionedTable
@@ -80,10 +82,10 @@ We shall now use `ListQbitVersionedTable()` which returns the list of all qbits 
 [<QuantumDeviceLib.app.QbitVersionedTable object at 0x10df5b850>, <QuantumDeviceLib.app.QbitVersionedTable object at 0x10df5bbd0>]
 >>>
 ```
-Clearly we see the two qbits we have added to the table.
+Clearly we see the two qbits that have been added to the table.
 
 ## Step 5: Add Gates
-We add two gates to the first qbit and one gate to second qbit
+We now add two gates to the first qbit and one gate to second qbit.
 ```sh
 >>> createGateVersionedTable("+X/2",1,1.2,3.14,qbit=qbits[0])
 >>> createGateVersionedTable("-Y/2",1,1.2,3.14,qbit=qbits[0])
@@ -97,8 +99,8 @@ Thus the rows of `gateversionedtable` becomes:
 | 2 | 1 | -Y/2 | 1 | 1.0 | 1.2 | 3.14 |
 | 3 | 1 | +X/2 | 2 | 2.0 | 1.3 | 1.2  |
 
-The `version_id` is always 1 unless we choose an update for a particular row;
-when it appends the new row (doesn't delete the old row) and marks the new row
+The `version_id` is always 1 unless we choose an update for a particular row.
+This is when it appends a new row (doesn't delete the old row) and marks the new row
 as old `version_id` plus one.
 
 ## Step 6: Read GateVersionedTable
