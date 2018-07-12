@@ -26,7 +26,7 @@ been designed to represent the relationship with bi-directional connections for 
 DeviceTable ⇄ QbitVersionedTable ⇄  GateVersionedTable
 ```
 Let us run an example of device creation. I shall create a device, add qubits,
-add gates for each qubit, update a qubit and delete the table. I shall be displaying the results as seen on a python shell (object addresses will differ from system to system). Please see example.py for reference.
+add gates for each qubit, update a qubit,update a gate and delete the table. I shall be displaying the results as seen on a python shell (object addresses will differ from system to system). Please see example.py for reference.
 
 ## Step 1: Create DeviceTable
 
