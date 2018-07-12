@@ -1,4 +1,4 @@
-# QuantumDeviceLib: An API for superconducting integrated circuit
+# QuantumDeviceLib: An API for data processing of quantum integrated circuit
 
 The main design goals of this project are:
 a) Implement an software API for CRUD 
