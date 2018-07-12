@@ -12,7 +12,7 @@ before we proceed.
 $ py.test
 ```
 
-## Introductions
+## Introduction
 A superconducting circuit comprises of qbits and gates which forms the following one-to-many hierarchy.
 ```sh
 device -> qubit -> gate
@@ -111,7 +111,7 @@ as old `version_id` plus one.
 [<QuantumDeviceLib.app.GateVersionedTable object at 0x10df47b90>, <QuantumDeviceLib.app.GateVersionedTable object at 0x10df74c10>, <QuantumDeviceLib.app.GateVersionedTable object at 0x10df74650>]
 ```
 
-## Step 6: Traverse up and down
+## Step 7: Traverse up and down
 It  is easy to move up and down the one-to-many hierarchy as shown below.
 Traversing device -> qubit -> gate
 ```sh
@@ -124,7 +124,7 @@ Traversing device <- qubit <- gate
 >>> gates[0].qbit.device.device_id
 u'7-qbit-prototype'
 ```
-## Step 6: Versioning and Updating
+## Step 8: Versioning and Updating
 Let's try to update row no.2. This will trigger the versioning system
 and a new row will be appended to `qbitversionedtable` table
 ```sh
@@ -154,12 +154,12 @@ Thus the rows of `gateversionedtable` now becomes:
 | 3 | 1 | +X/2 | 2 | 2.0 | 1.3 | 1.2  |
 | 4 | 2 | -Y/2| 3 | 2.0 | 1.3 | 3.14  |
 
-## Step 7: Delete Tables
+## Step 9: Delete Tables
 The following command is used to delete all tables
 ```sh
 >>> deleteALL()
 ```
-## Step 8: Future Improvements:
+## Step 10: Future Improvements
   - Data quality checks to be provides
   - More robust versioning system
   - More CRUD functions.
