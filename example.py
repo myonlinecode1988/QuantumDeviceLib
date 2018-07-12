@@ -1,7 +1,4 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from QuantumDeviceLib.app import *
-import sqlalchemy.exc as sqlalchemy_exc
 
  
 # Create DeviceTable objects 
