@@ -17,7 +17,7 @@ $ py.test
 ```
 
 
-# Data Structure
+### Data Structure
 We have 3 classes which also corresponds to three SQL tables that has 
 been designed to represent the hierarchy with bi-directional connections
 for easy object traversal. 
@@ -27,7 +27,7 @@ DeviceTable ⇄ QbitVersionedTable ⇄  GateVersionedTable
 Let us run an example of device creation. I shall create a device, add qubits,
 add gates for each qubit, update a qubit and delete the table. I shall be displaying the results as seen on a python shell (object addresses will differ from system to system). Please see example.py for reference.
 
-#### Step 1: Create DeviceTable
+### Step 1: Create DeviceTable
 
 We create a Device called `7-qbit-prototype` with an attached description.
 ```sh
@@ -40,7 +40,7 @@ The `devicetable` database will show this
 | ----------- |:--------------:|-------|
 | 1 | 7-qbit-prototype | A 7 qbit prototype chip |
 
-#### Step 2: Read DeviceTable
+### Step 2: Read DeviceTable
 We shall now use `ListDeviceTable()` which returns the list of all devices in the table.
 
 ```sh
@@ -49,7 +49,7 @@ We shall now use `ListDeviceTable()` which returns the list of all devices in th
 [<QuantumDeviceLib.app.DeviceTable object at 0x10df474d0>]
 ```
 
-#### Step 3: Add Qbits
+### Step 3: Add Qbits
 We add two qbits with different parameters
 ```sh
 >>> createQbitVersionedTable(2.3,1.2,1.4,device=devices[0])
@@ -57,6 +57,7 @@ We add two qbits with different parameters
 ```
 
 This creates the following rows in `qbitversionedtable` table
+
 | id        | version\_id | device\_id  |qbit\_counter |resonance\_freq  |t1  |t2  |
 | ----------- |:--------------:|:--------------:|:--------------:|:--------------:|:--------------:|-------|
 | 1 | 1| 1 | 0 |2.3|1.2|1.4|
@@ -69,7 +70,7 @@ The `version_id` is always 1 unless we choose an update for a particular row;
 when it appends the new row (doesn't delete the old row) and marks the new row
 as old `version_id` plus one.
 
-#### Step 4: Read QbitVersionedTable
+### Step 4: Read QbitVersionedTable
 We shall now use `ListQbitVersionedTable()` which returns the list of all qbits in the table.
 
 ```sh
@@ -80,7 +81,7 @@ We shall now use `ListQbitVersionedTable()` which returns the list of all qbits 
 ```
 Clearly we see the two qbits we have added to the table.
 
-#### Step 5: Add Gates
+### Step 5: Add Gates
 We add two gates to the first qbit and one gate to second qbit
 ```sh
 >>> createGateVersionedTable("+X/2",1,1.2,3.14,qbit=qbits[0])
@@ -98,7 +99,7 @@ The `version_id` is always 1 unless we choose an update for a particular row;
 when it appends the new row (doesn't delete the old row) and marks the new row
 as old `version_id` plus one.
 
-#### Step 6: Read GateVersionedTable
+### Step 6: Read GateVersionedTable
 
 ```sh
 >>> gates=ListGateVersionedTable()
@@ -106,7 +107,7 @@ as old `version_id` plus one.
 [<QuantumDeviceLib.app.GateVersionedTable object at 0x10df47b90>, <QuantumDeviceLib.app.GateVersionedTable object at 0x10df74c10>, <QuantumDeviceLib.app.GateVersionedTable object at 0x10df74650>]
 ```
 
-#### Step 6: Traverse up and down
+### Step 6: Traverse up and down
 It  is easy to move up and down the one-to-many hierarchy as shown below.
 Traversing device -> qubit -> gate
 ```sh
@@ -119,7 +120,7 @@ Traversing device <- qubit <- gate
 >>> gates[0].qbit.device.device_id
 u'7-qbit-prototype'
 ```
-#### Step 6: Versioning and Updating
+### Step 6: Versioning and Updating
 Let's try to update row no.2. This will trigger the versioning system
 and a new row will be appended to `qbitversionedtable` table
 ```sh
