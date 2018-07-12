@@ -4,6 +4,8 @@
 *.so
 
 # Packages
+.pytest_cache/
+*.db
 *.egg
 *.egg-info
 dist
